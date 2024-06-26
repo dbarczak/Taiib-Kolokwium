@@ -1,0 +1,51 @@
+<body>
+  <button (click)="toggleForm()">
+    {{ isFormVisible ? "Anuluj dodawanie klawiatury" : "Dodaj klawiaturę" }}
+  </button>
+  <br />
+  <div class="main">
+    <div *ngIf="isFormVisible" class="container">
+      <form (ngSubmit)="addKeyboard()">
+        <label>
+          Model:
+          <input [(ngModel)]="newKeyboard.model" name="model" required />
+        </label>
+        <br />
+        <label>
+          Rodzaj:
+          <select [(ngModel)]="newKeyboard.rodzaj" name="rodzaj" required>
+            <option [ngValue]="0">Membranowa</option>
+            <option [ngValue]="1">Nożycowa</option>
+            <option [ngValue]="2">Mechaniczna</option>
+            <option [ngValue]="3">Optyczna</option>
+            <option [ngValue]="4">Hybrydowa</option>
+          </select>
+        </label>
+        <br />
+        <button type="submit">Dodaj</button>
+      </form>
+    </div>
+
+    <div class="container" *ngIf="!isFormVisible">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Model</th>
+            <th>Rodzaj</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of data">
+            <td>{{ s.id }}</td>
+            <td>{{ s.model }}</td>
+            <td>{{ s.rodzaj }}</td>
+            <td>
+              <button (click)="deleteKeyboard(s.id)">Usuń</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
